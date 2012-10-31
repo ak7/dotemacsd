@@ -1,3 +1,14 @@
+;; MANUAL SETUP STEPS
+;; ------------------
+;; python IDE setup - https://github.com/jorgenschaefer/pyde
+;; install steps
+;; 1. easy_install --user rope ropemode ropemacs
+;; 2. git clone https://github.com/pinard/Pymacs.git
+;;    cd Pymacs
+;;    make
+;;    python setup.py install --user
+
+
 (require 'cl)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -25,7 +36,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete)
+(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -36,7 +47,6 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (require 'auto-complete-config)
 (ac-config-default)
-
 
 
 
