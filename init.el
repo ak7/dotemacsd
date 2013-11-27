@@ -20,7 +20,12 @@
 (setq inhibit-splash-screen t)
 
 ;; set theme
-(load-theme 'wombat t)
+;;(load-theme 'wombat t)
+
+;; display line number
+(global-linum-mode t)
+(setq linum-format "%d ")
+
 
 ;; initialize package.el
 (require 'package)
