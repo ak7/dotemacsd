@@ -43,7 +43,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode project-mode helm projectile helm-projectile)
+(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode project-mode helm projectile helm-projectile direx)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
