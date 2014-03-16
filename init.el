@@ -35,13 +35,15 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 ;; load packages
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs)
+(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode project-mode helm projectile helm-projectile)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -53,5 +55,15 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; project-mode
+(autoload 'project-mode "project-mode" "Project Mode" t)
+(require 'project-mode)
+
+;; helm
+(global-set-key (kbd "C-c h") 'helm-projectile)
+
+;; projectile
+(projectile-global-mode)
+(setq projectile-require-project-root nil)
 
 
