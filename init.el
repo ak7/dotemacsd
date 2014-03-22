@@ -43,7 +43,9 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode project-mode helm projectile helm-projectile direx popwin)
+(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby
+                                  auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
+                                  helm projectile helm-projectile direx popwin markdown-mode markdown-mode+)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -55,16 +57,12 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; project-mode
-(autoload 'project-mode "project-mode" "Project Mode" t)
-(require 'project-mode)
-
-;; helm
-(global-set-key (kbd "C-c h") 'helm-projectile)
-
 ;; projectile
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
+
+;; helm
+(global-set-key (kbd "C-c h") 'helm-projectile)
 
 ;; popwin, need for some direx stuff
 (require 'popwin)
@@ -73,9 +71,11 @@
 ;; direx
 (require 'direx)
 ;;(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
-(push '(direx:direx-mode :position left :width 50 :dedicated t)
-      popwin:special-display-config)
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+
+(push '(direx:direx-mode :position right :width 50 :dedicated t)
+     popwin:special-display-config)
+(global-set-key (kbd "C-x C-g") 'direx:jump-to-directory-other-window)
+
 
 
 
