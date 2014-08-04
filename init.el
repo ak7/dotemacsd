@@ -45,7 +45,8 @@
 
 (defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby
                                   auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
-                                  helm projectile helm-projectile direx popwin markdown-mode markdown-mode+)
+                                  helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
+                                  js2-mode js2-refactor web-beautify ac-js2)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -76,6 +77,21 @@
      popwin:special-display-config)
 (global-set-key (kbd "C-x C-g") 'direx:jump-to-directory-other-window)
 
+;; jsx
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
+;; javascript 
+(setq js2-bounce-indent-p t)
+
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook
+             (lambda ()
+               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+(add-hook 'js2-mode-hook 'ac-js2-mode)
 
 
