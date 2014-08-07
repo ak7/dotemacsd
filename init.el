@@ -59,6 +59,8 @@
 (ac-config-default)
 
 ;; projectile
+;; switch project C-c p s
+;; find file in project C-c p f
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
 
@@ -71,17 +73,19 @@
 
 ;; direx
 (require 'direx)
-;;(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 
+;; the project browser will show in a popwin.
 (push '(direx:direx-mode :position right :width 50 :dedicated t)
-     popwin:special-display-config)
-(global-set-key (kbd "C-x C-g") 'direx:jump-to-directory-other-window)
+      popwin:special-display-config)
+(global-set-key (kbd "C-x C-g") 'direx-project:jump-to-project-root-other-window)
 
 ;; jsx
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
-;; javascript 
+;; javascript
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;;(autoload 'js2-mode "js2 mode" nil t)
 (setq js2-bounce-indent-p t)
 
 (eval-after-load 'js2-mode
