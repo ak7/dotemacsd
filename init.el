@@ -46,7 +46,7 @@
 (defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby
                                   auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
-                                  js2-mode js2-refactor web-beautify ac-js2)
+                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -97,5 +97,19 @@
                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
 
 (add-hook 'js2-mode-hook 'ac-js2-mode)
+
+;; expand region - helps select text easily
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(pending-delete-mode t)
+
+;; ace jump mode
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
 
 
