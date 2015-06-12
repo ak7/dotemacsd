@@ -54,7 +54,7 @@
     (package-install p)))
 
 ;; auto complete setup
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/autocomplete")
 (require 'auto-complete-config)
 (ac-config-default)
 
