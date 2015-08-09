@@ -12,6 +12,8 @@
 (require 'cl)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; seems to be needed for starter-kit
 (require 'hippie-exp)
@@ -43,10 +45,9 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-js starter-kit-lisp starter-kit-ruby
-                                  auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
+(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
-                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode)
+                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -57,6 +58,21 @@
 (add-to-list 'load-path "~/.emacs.d/autocomplete")
 (require 'auto-complete-config)
 (ac-config-default)
+
+;; smex init
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+;; ido
+(ido-mode 1)
+(ido-everywhere 1)
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
+
+(setq org-completion-use-ido t)
+(setq magit-completing-read-function 'magit-ido-completing-read)
 
 ;; projectile
 ;; switch project C-c p s
@@ -110,6 +126,3 @@
   "Emacs quick move minor mode"
   t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-
-
