@@ -126,3 +126,13 @@
   "Emacs quick move minor mode"
   t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+;; idle highlight mode
+(defun my-coding-hook ()
+  (make-local-variable 'column-number-mode)
+  (column-number-mode t)
+  (if window-system (hl-line-mode t))
+  (idle-highlight-mode t))
+
+(add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
+(add-hook 'js2-mode-hook 'my-coding-hook)
