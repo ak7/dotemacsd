@@ -1,13 +1,3 @@
-;; MANUAL SETUP STEPS
-;; ------------------
-;; python IDE setup - https://github.com/jorgenschaefer/pyde
-;; install steps
-;; 1. easy_install --user rope ropemode ropemacs
-;; 2. git clone https://github.com/pinard/Pymacs.git
-;;    cd Pymacs
-;;    make
-;;    python setup.py install --user
-
 
 (require 'cl)
 
@@ -35,8 +25,8 @@
 
 ;; add marmalade repos
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;;(add-to-list 'package-archives
+;;             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
@@ -45,7 +35,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete python-mode pymacs coffee-mode flymake-coffee org less-css-mode
+(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous)
   "A list of packages to ensure are installed at launch.")
@@ -77,6 +67,7 @@
 ;; projectile
 ;; switch project C-c p s
 ;; find file in project C-c p f
+;; list projects C-c p p
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
 
