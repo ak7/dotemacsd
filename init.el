@@ -5,14 +5,14 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
-;; seems to be needed for starter-kit
-(require 'hippie-exp)
-
 ;; stop splash screen
 (setq inhibit-splash-screen t)
 
-;; set theme
-;;(load-theme 'wombat t)
+;; line spacing
+(setq-default line-spacing 5)
+
+;; font size
+(set-face-attribute 'default nil :height 140)
 
 ;; display line number
 (global-linum-mode t)
@@ -37,7 +37,8 @@
 
 (defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
-                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous)
+                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
+				  material-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -125,5 +126,7 @@
   (if window-system (hl-line-mode t))
   (idle-highlight-mode t))
 
-(add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
-(add-hook 'js2-mode-hook 'my-coding-hook)
+;; set theme
+;;(load-theme 'wombat t)
+(load-theme 'material-light t)
+
