@@ -12,7 +12,7 @@
 (setq-default line-spacing 5)
 
 ;; font size
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :family "monaco" :height 145)
 
 ;; display line number
 (global-linum-mode t)
@@ -66,9 +66,9 @@
 (setq magit-completing-read-function 'magit-ido-completing-read)
 
 ;; projectile
-;; switch project C-c p s
 ;; find file in project C-c p f
 ;; list projects C-c p p
+;; search for symbol at the cursor within the project C-c p s g
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
 
@@ -119,14 +119,13 @@
   t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
-;; idle highlight mode
-(defun my-coding-hook ()
-  (make-local-variable 'column-number-mode)
-  (column-number-mode t)
-  (if window-system (hl-line-mode t))
-  (idle-highlight-mode t))
+;; I don't want backup files
+(setq make-backup-files nil)
+ 
+;; list symbols
+(global-set-key (kbd "C-c f") 'helm-imenu)
 
 ;; set theme
 ;;(load-theme 'wombat t)
-(load-theme 'material-light t)
+(load-theme 'material t)
 
