@@ -9,10 +9,10 @@
 (setq inhibit-splash-screen t)
 
 ;; line spacing
-(setq-default line-spacing 5)
+(setq-default line-spacing 3)
 
 ;; font size
-(set-face-attribute 'default nil :family "monaco" :height 145)
+(set-face-attribute 'default nil :family "monaco" :height 125)
 
 ;; display line number
 (global-linum-mode t)
@@ -38,7 +38,7 @@
 (defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
-				  material-theme)
+				  material-theme go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -75,17 +75,11 @@
 ;; helm
 (global-set-key (kbd "C-c h") 'helm-projectile)
 
-;; popwin, need for some direx stuff
-(require 'popwin)
-(popwin-mode 1)
-
-;; direx
-(require 'direx)
-
-;; the project browser will show in a popwin.
-(push '(direx:direx-mode :position right :width 50 :dedicated t)
-      popwin:special-display-config)
-(global-set-key (kbd "C-x C-g") 'direx-project:jump-to-project-root-other-window)
+;; neoTree
+(require 'neotree)
+(global-set-key (kbd "C-c o") 'neotree-toggle)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
 
 ;; jsx
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
@@ -127,5 +121,26 @@
 
 ;; set theme
 ;;(load-theme 'wombat t)
-(load-theme 'material t)
+;;(load-theme 'material t)
+(set-frame-parameter nil 'background-mode 'dark)
+      (when (not (display-graphic-p))
+      (set-terminal-parameter nil 'background-mode 'dark))
+(load-theme 'solarized t)
 
+;; go lang
+(require 'go-mode-autoloads)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("667e296942c561382fe0a8584c26be0fe7a80416270c3beede8c6d69f2f77ccc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "316d29f8cd6ca980bf2e3f1c44d3a64c1a20ac5f825a167f76e5c619b4e92ff4" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
