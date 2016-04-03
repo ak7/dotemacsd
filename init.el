@@ -12,7 +12,18 @@
 (setq-default line-spacing 3)
 
 ;; font size
-(set-face-attribute 'default nil :family "monaco" :height 125)
+;;(set-face-attribute 'default nil :family "monaco" :height 125)
+(when window-system
+  (when (functionp 'set-fontset-font)
+   (set-fontset-font "fontset-default"
+                     'unicode
+                     (font-spec :family "DejaVu Sans Mono"
+                                :width 'normal
+                                :size 14
+                                :weight 'normal))))
+
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; display line number
 (global-linum-mode t)
@@ -83,6 +94,15 @@
 (global-set-key (kbd "C-c o") 'neotree-toggle)
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action)
+(setq neo-theme 'ascii)
+(custom-set-faces
+ '(neo-banner-face ((t . (:inherit shadow))) t)
+ '(neo-header-face ((t . (:inherit shadow))) t)
+ '(neo-root-dir-face ((t . (:inherit link-visited :underline nil))) t)
+ '(neo-dir-link-face ((t . (:inherit dired-directory))) t)
+ '(neo-file-link-face ((t . (:inherit default))) t)
+ '(neo-button-face ((t . (:inherit dired-directory))) t)
+ '(neo-expand-btn-face ((t . (:inherit button))) t))
 
 ;; jsx
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
