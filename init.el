@@ -18,6 +18,39 @@
 (global-linum-mode t)
 (setq linum-format "%d ")
 
+;; initialize package.el
+(require 'package)
+(package-initialize)
+
+;; add marmalade repos
+(require 'package)
+;;(add-to-list 'package-archives
+;;             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+;; load packages
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
+                                  helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
+                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
+				  material-theme
+				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
+				  editorconfig)
+  "A list of packages to ensure are installed at launch.")
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+;; auto complete setup
+(add-to-list 'load-path "~/.emacs.d/autocomplete")
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; remove ugly scrollbar
 (scroll-bar-mode -1)
 ;; smex init
@@ -99,6 +132,9 @@
 
 ;; go lang
 (require 'go-mode-autoloads)
+
+;;editorconfig
+(editorconfig-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
