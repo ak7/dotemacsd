@@ -5,8 +5,12 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
+
 ;; stop splash screen
-(setq inhibit-splash-screen t)
+(setq visible-bell t
+      inhibit-splash-screen t
+      inhibit-startup-message t
+      initial-scratch-message nil)
 
 ;; line spacing
 (setq-default line-spacing 3)
