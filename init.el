@@ -18,38 +18,8 @@
 (global-linum-mode t)
 (setq linum-format "%d ")
 
-
-;; initialize package.el
-(require 'package)
-(package-initialize)
-
-;; add marmalade repos
-(require 'package)
-;;(add-to-list 'package-archives
-;;             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
-
-;; load packages
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
-                                  helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
-                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
-				  material-theme go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest)
-  "A list of packages to ensure are installed at launch.")
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-;; auto complete setup
-(add-to-list 'load-path "~/.emacs.d/autocomplete")
-(require 'auto-complete-config)
-(ac-config-default)
-
+;; remove ugly scrollbar
+(scroll-bar-mode -1)
 ;; smex init
 (require 'smex)
 (smex-initialize)
@@ -137,7 +107,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("667e296942c561382fe0a8584c26be0fe7a80416270c3beede8c6d69f2f77ccc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "316d29f8cd6ca980bf2e3f1c44d3a64c1a20ac5f825a167f76e5c619b4e92ff4" default))))
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "667e296942c561382fe0a8584c26be0fe7a80416270c3beede8c6d69f2f77ccc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "316d29f8cd6ca980bf2e3f1c44d3a64c1a20ac5f825a167f76e5c619b4e92ff4" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
