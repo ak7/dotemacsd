@@ -12,15 +12,9 @@
 (setq-default line-spacing 3)
 
 ;; font size
-;;(set-face-attribute 'default nil :family "monaco" :height 125)
-(when window-system
-  (when (functionp 'set-fontset-font)
-   (set-fontset-font "fontset-default"
-                     'unicode
-                     (font-spec :family "DejaVu Sans Mono"
-                                :width 'normal
-                                :size 14
-                                :weight 'normal))))
+(set-face-attribute 'default nil :family "monaco" :height 125)
+;; windows
+;; (set-face-attribute 'default nil :family "consolas" :height 119)
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
