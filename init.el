@@ -47,7 +47,8 @@
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
-				  editorconfig web-mode multiple-cursors flycheck json-mode exec-path-from-shell)
+				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor
+				  exec-path-from-shell)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -155,6 +156,7 @@
                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
 
 (add-hook 'js2-mode-hook 'ac-js2-mode)
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 ;; expand region - helps select text easily
 (require 'expand-region)
