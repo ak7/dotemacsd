@@ -46,9 +46,8 @@
 (defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
-				  material-theme
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
-				  editorconfig web-mode)
+				  editorconfig web-mode multiple-cursors flycheck json-mode exec-path-from-shell)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -103,8 +102,44 @@
  '(neo-expand-btn-face ((t . (:inherit button))) t))
 
 ;; jsx
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+;;(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+
+;; jsx - flycheck
+;; npm install -g eslint babel-eslint eslint-plugin-react
+;; use web-mode for .jsx files
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+
+;; http://www.flycheck.org/manual/latest/index.html
+(require 'flycheck)
+
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
+
+;; https://github.com/purcell/exec-path-from-shell
+;; only need exec-path-from-shell on OSX
+;; this hopefully sets up path and other vars better
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+
+
 
 ;; javascript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -159,18 +194,9 @@
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "667e296942c561382fe0a8584c26be0fe7a80416270c3beede8c6d69f2f77ccc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "316d29f8cd6ca980bf2e3f1c44d3a64c1a20ac5f825a167f76e5c619b4e92ff4" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; multiple cursor
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
