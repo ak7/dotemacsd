@@ -48,7 +48,7 @@
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
 				  material-theme
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
-				  editorconfig)
+				  editorconfig web-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -143,16 +143,22 @@
 ;; set theme
 ;;(load-theme 'wombat t)
 ;;(load-theme 'material t)
-(set-frame-parameter nil 'background-mode 'dark)
-      (when (not (display-graphic-p))
-      (set-terminal-parameter nil 'background-mode 'dark))
-(load-theme 'solarized t)
+;;(set-frame-parameter nil 'background-mode 'dark)
+;;      (when (not (display-graphic-p))
+;;      (set-terminal-parameter nil 'background-mode 'dark))
+;;(load-theme 'solarized t)
+(load-theme 'adwaita t)
 
 ;; go lang
 (require 'go-mode-autoloads)
 
 ;;editorconfig
 (editorconfig-mode 1)
+
+;; web-mode http://web-mode.org/
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
