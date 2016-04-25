@@ -16,9 +16,12 @@
 (setq-default line-spacing 3)
 
 ;; font size
-(set-face-attribute 'default nil :family "monaco" :height 125)
-;; windows
-;; (set-face-attribute 'default nil :family "consolas" :height 119)
+(if (eq system-type 'darwin)
+    (set-face-attribute 'default nil :family "monaco" :height 125)
+)
+(if (eq system-type 'windows-nt)
+    (set-face-attribute 'default nil :family "consolas" :height 119)
+)
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -157,6 +160,7 @@
 
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
+;; C-c C-r
 
 ;; expand region - helps select text easily
 (require 'expand-region)
