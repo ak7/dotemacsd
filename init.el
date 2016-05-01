@@ -17,7 +17,7 @@
 
 ;; font size
 (if (eq system-type 'darwin)
-    (set-face-attribute 'default nil :family "monaco" :height 125)
+    (set-face-attribute 'default nil :family "monaco" :height 125)
 )
 (if (eq system-type 'windows-nt)
     (set-face-attribute 'default nil :family "consolas" :height 119)
@@ -46,12 +46,12 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode
+(defvar my-packages '(paredit idle-highlight-mode magit smex auto-complete org less-css-mode sublimity
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
-                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode smooth-scrolling ido-ubiquitous
+                                  js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
 				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor
-				  exec-path-from-shell)
+				  exec-path-from-shell seoul256-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -89,6 +89,13 @@
 
 ;; helm
 (global-set-key (kbd "C-c h") 'helm-projectile)
+
+;; sublimity
+(require 'sublimity)
+(require 'sublimity-scroll)
+;;(require 'sublimity-map)
+;;(require 'sublimity-attractive)
+(sublimity-mode 1)
 
 ;; neoTree
 (require 'neotree)
@@ -188,7 +195,8 @@
 ;;      (when (not (display-graphic-p))
 ;;      (set-terminal-parameter nil 'background-mode 'dark))
 ;;(load-theme 'solarized t)
-(load-theme 'adwaita t)
+(load-theme 'zenburn t)
+
 
 ;; go lang
 (require 'go-mode-autoloads)
