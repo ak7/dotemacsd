@@ -50,8 +50,8 @@
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
-				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor
-				  exec-path-from-shell seoul256-theme)
+				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor flycheck-flow
+				  exec-path-from-shell aurora-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -195,7 +195,7 @@
 ;;      (when (not (display-graphic-p))
 ;;      (set-terminal-parameter nil 'background-mode 'dark))
 ;;(load-theme 'solarized t)
-(load-theme 'zenburn t)
+(load-theme 'aurora t)
 
 
 ;; go lang
