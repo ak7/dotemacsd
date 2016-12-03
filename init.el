@@ -17,7 +17,7 @@
 
 ;; font size
 (if (eq system-type 'darwin)
-    (set-face-attribute 'default nil :family "monaco" :height 125)
+    (set-face-attribute 'default nil :family "monaco" :height 126)
 )
 (if (eq system-type 'windows-nt)
     (set-face-attribute 'default nil :family "consolas" :height 119)
@@ -51,7 +51,7 @@
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
 				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor flycheck-flow
-				  exec-path-from-shell aurora-theme)
+				  exec-path-from-shell neotree material-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -195,7 +195,7 @@
 ;;      (when (not (display-graphic-p))
 ;;      (set-terminal-parameter nil 'background-mode 'dark))
 ;;(load-theme 'solarized t)
-(load-theme 'aurora t)
+(load-theme 'material t)
 
 
 ;; go lang
