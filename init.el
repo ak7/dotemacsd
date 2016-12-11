@@ -199,7 +199,7 @@
 
 
 ;; go lang
-(require 'go-mode-autoloads)
+(require 'go-mode)
 
 ;;editorconfig
 (editorconfig-mode 1)
