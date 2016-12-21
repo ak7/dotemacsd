@@ -28,7 +28,7 @@
 
 ;; display line number
 (global-linum-mode t)
-(setq linum-format "%d ")
+(setq linum-format "%4d ")
 
 ;; initialize package.el
 (require 'package)
