@@ -30,6 +30,14 @@
 (global-linum-mode t)
 (setq linum-format "%4d ")
 
+;; auto indent and brakets
+(electric-indent-mode -1)
+(electric-pair-mode -1)
+
+;; hightlight matching parens
+(show-paren-mode t)
+
+
 ;; initialize package.el
 (require 'package)
 (package-initialize)
@@ -51,7 +59,7 @@
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
 				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor flycheck-flow
-				  exec-path-from-shell neotree material-theme)
+				  exec-path-from-shell neotree twilight-bright-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -104,13 +112,17 @@
 (setq projectile-switch-project-action 'neotree-projectile-action)
 (setq neo-theme 'ascii)
 (custom-set-faces
- '(neo-banner-face ((t . (:inherit shadow))) t)
- '(neo-header-face ((t . (:inherit shadow))) t)
- '(neo-root-dir-face ((t . (:inherit link-visited :underline nil))) t)
- '(neo-dir-link-face ((t . (:inherit dired-directory))) t)
- '(neo-file-link-face ((t . (:inherit default))) t)
- '(neo-button-face ((t . (:inherit dired-directory))) t)
- '(neo-expand-btn-face ((t . (:inherit button))) t))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(neo-banner-face ((t :inherit shadow)))
+ '(neo-button-face ((t :inherit dired-directory)))
+ '(neo-dir-link-face ((t :inherit dired-directory)))
+ '(neo-expand-btn-face ((t :inherit button)))
+ '(neo-file-link-face ((t :inherit default)))
+ '(neo-header-face ((t :inherit shadow)))
+ '(neo-root-dir-face ((t :inherit link-visited :underline nil))))
 
 ;; jsx
 ;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
@@ -195,7 +207,7 @@
 ;;      (when (not (display-graphic-p))
 ;;      (set-terminal-parameter nil 'background-mode 'dark))
 ;;(load-theme 'solarized t)
-(load-theme 'material t)
+(load-theme 'twilight-bright t)
 
 
 ;; go lang
@@ -214,3 +226,11 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (csharp-mode material-theme neotree exec-path-from-shell flycheck-flow discover-js2-refactor json-mode flycheck web-mode editorconfig gotest go-stacktracer go-projectile go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ido-ubiquitous ace-jump-mode expand-region ac-js2 web-beautify js2-refactor js2-mode jsx-mode markdown-mode+ markdown-mode popwin direx helm-projectile projectile helm sublimity less-css-mode auto-complete smex magit idle-highlight-mode paredit))))
