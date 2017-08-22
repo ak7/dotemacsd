@@ -31,11 +31,20 @@
 (setq linum-format "%4d ")
 
 ;; auto indent and brakets
-(electric-indent-mode -1)
-(electric-pair-mode -1)
+(electric-indent-mode t)
+(electric-pair-mode t)
 
 ;; hightlight matching parens
 (show-paren-mode t)
+
+;; auto save to a temp dir
+(defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
+(setq backup-directory-alist
+      `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+	`((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+	emacs-tmp-dir)
 
 
 ;; initialize package.el
@@ -58,7 +67,7 @@
                                   helm projectile helm-projectile direx popwin markdown-mode markdown-mode+ jsx-mode
                                   js2-mode js2-refactor web-beautify ac-js2 expand-region ace-jump-mode ido-ubiquitous
 				  go-autocomplete go-complete go-direx go-dlv go-eldoc go-errcheck go-mode go-projectile go-rename go-stacktracer gotest
-				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor flycheck-flow
+				  editorconfig web-mode multiple-cursors flycheck json-mode js2-refactor discover-js2-refactor flycheck-flow flycheck-pos-tip
 				  exec-path-from-shell neotree twilight-bright-theme)
   "A list of packages to ensure are installed at launch.")
 
@@ -136,6 +145,10 @@
 ;; http://www.flycheck.org/manual/latest/index.html
 (require 'flycheck)
 
+;; tooltip sort of..
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
+
 ;; turn on flychecking globally
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -160,9 +173,6 @@
 ;; this hopefully sets up path and other vars better
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
-
-
-
 
 ;; javascript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -212,6 +222,28 @@
 
 ;; go lang
 (require 'go-mode)
+(defun my-go-mode-hook ()
+;; gofmt before saving
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; prerequisite step
+  ;;       go get github.com/rogpeppe/godef
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "M-*") 'pop-tag-mark)
+  )
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+
+(defun auto-complete-for-go ()
+  (auto-complete-mode 1))
+(add-hook 'go-mode-hook 'auto-complete-for-go)
+
+(with-eval-after-load 'go-mode
+  (require 'go-autocomplete))
+
+;; before auto complete works pre requisite step -
+;;     go get -u github.com/nsf/gocode
+(require 'auto-complete-config)
+(define-key ac-mode-map (kbd "C-.") 'auto-complete)
+
 
 ;;editorconfig
 (editorconfig-mode 1)
@@ -226,11 +258,13 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (csharp-mode material-theme neotree exec-path-from-shell flycheck-flow discover-js2-refactor json-mode flycheck web-mode editorconfig gotest go-stacktracer go-projectile go-errcheck go-eldoc go-dlv go-direx go-complete go-autocomplete ido-ubiquitous ace-jump-mode expand-region ac-js2 web-beautify js2-refactor js2-mode jsx-mode markdown-mode+ markdown-mode popwin direx helm-projectile projectile helm sublimity less-css-mode auto-complete smex magit idle-highlight-mode paredit))))
+
+;; omnisharp
+;;(add-hook 'csharp-mode-hook 'omnisharp-mode)
+;;(global-set-key (kbd "C-.") 'omnisharp-auto-complete)
+
+
+
+
+
+
