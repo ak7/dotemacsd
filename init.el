@@ -223,12 +223,37 @@
 ;; go lang
 (require 'go-mode)
 (defun my-go-mode-hook ()
-;; gofmt before saving
+  
+  ;; Use goimports instead of go-fmt
+  ;; go get golang.org/x/tools/cmd/goimports
+  (setq gofmt-command "goimports")
+  ;; gofmt before saving
   (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; Customize compile command to run go build
+  (if (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+           "go generate && go build -v && go test -v && go vet"))
+
+  ;; Go oracle
+  ;; go get golang.org/x/tools/cmd/guru
+  ;; C-c C-o ?
+  ;; < show callers to a function
+  ;; > show callees to a function
+  ;; s show call stack (== possible paths from main())
+  ;; i show implements (== what interfaces does this thing implement?)
+  ;; d describe expression (== show function params or type of identifier)
+  ;; r referrers
+  (go-guru-hl-identifier-mode)
+  
   ;; prerequisite step
   ;;       go get github.com/rogpeppe/godef
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "M-*") 'pop-tag-mark)
+
+  (local-set-key (kbd "M-p") 'compile)            ; Invoke compiler
+  (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
+  (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
@@ -243,7 +268,11 @@
 ;;     go get -u github.com/nsf/gocode
 (require 'auto-complete-config)
 (define-key ac-mode-map (kbd "C-.") 'auto-complete)
+(ac-config-default)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
 
 ;;editorconfig
 (editorconfig-mode 1)
@@ -258,10 +287,6 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-;; omnisharp
-;;(add-hook 'csharp-mode-hook 'omnisharp-mode)
-;;(global-set-key (kbd "C-.") 'omnisharp-auto-complete)
 
 
 
