@@ -169,9 +169,8 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :commands ace-jump-mode
-  :init
-  (bind-key "C-c SPC" 'ace-jump-mode))
+  :config
+  (global-set-key (kbd "C-c SPC") 'ace-jump-mode))
 
 ;; Custom binding for magit-status
 (use-package magit
@@ -233,11 +232,16 @@
   :ensure t
   :config
 
-  ;; helm
-  (global-set-key (kbd "C-c h") 'helm-projectile)
-
   ;; list symbols
   (global-set-key (kbd "C-c f") 'helm-imenu)
+  )
+
+(use-package helm-projectile
+  :ensure t
+  :config
+
+  ;; helm
+  (global-set-key (kbd "C-c h") 'helm-projectile)
   )
 
 
@@ -292,14 +296,6 @@
 
   (hs-minor-mode 1))
 
-;; Auto completion
-(use-package company
-  :ensure t
-  :bind (("C-c /". company-complete))
-  :config
-  (global-company-mode)
-  )
-
 ;;Version Control Magit is the only thing you need when it comes to Version Control (Git)
 (use-package magit
   :ensure t
@@ -336,8 +332,17 @@
 (use-package emmet-mode
   :ensure t)
 
+;; in order to run gocode
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
+
+(use-package go-guru
+  :ensure t)
+
 ;; go
 (use-package go-mode
+  :mode "\\.go\\'"
   :ensure t
   :config
   (defun my-go-mode-hook ()
@@ -372,27 +377,30 @@
     (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
     (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
     (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
+
+    (auto-complete-mode 1)
     )
   (add-hook 'go-mode-hook 'my-go-mode-hook)
+
   )
 
-(defun auto-complete-for-go ()
-  (auto-complete-mode 1))
-(add-hook 'go-mode-hook 'auto-complete-for-go)
-
-(use-package go-autocomplete
+(use-package exec-path-from-shell
   :ensure t)
 
-(with-eval-after-load 'go-mode
-  (require 'go-autocomplete))
 
 ;; before auto complete works pre requisite step -
 ;;     go get -u github.com/nsf/gocode
-(use-package auto-complete-config
+(use-package auto-complete
   :ensure t
   :config
   (define-key ac-mode-map (kbd "C-.") 'auto-complete)
   (ac-config-default))
+
+(use-package go-autocomplete
+  :ensure t)
+
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;; navigation, editing ...
 (use-package expand-region
@@ -401,3 +409,17 @@
   (global-set-key (kbd "C-=") 'er/expand-region)
   (pending-delete-mode t))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (neotree auto-complete-config which-key web-mode use-package twilight-bright-theme restclient projectile perspective markdown-mode magit less-css-mode hydra htmlize helm go-mode go-autocomplete expand-region emmet-mode counsel company ace-window ace-jump-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
